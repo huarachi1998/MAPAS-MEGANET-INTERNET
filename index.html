@@ -2,21 +2,20 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>Panel de Cobertura ISP</title>
+  <title>Mapa ISP Visual</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <img src="assets/logo.png" alt="Logo ISP" class="logo" />
-    <h1>Mapa ISP Visual - La Paz</h1>
+    <h1>Panel ISP Visual - La Paz</h1>
   </header>
 
   <div id="map"></div>
 
   <footer>
-    <p>Última actualización: <span id="fecha"></span></p>
+    <p>Actualizado: <span id="fecha"></span></p>
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -26,7 +25,7 @@
     const map = L.map('map').setView([-16.5, -68.15], 13);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-    // Cargar íconos por defecto para evitar errores
+    // Habilitar íconos por defecto
     L.Icon.Default.mergeOptions({
       iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
       iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
@@ -37,12 +36,13 @@
       .then(r => r.json())
       .then(data => {
         data.forEach(nodo => {
-          const colorMap = {
-            "activo": "green",
-            "caido": "red",
-            "inestable": "orange"
-          };
-          const color = colorMap[nodo.estado] || "blue";
-
-          const customIcon = L.icon({
-            iconUrl: `assets
+          L.marker([nodo.lat, nodo.lng]).addTo(map)
+            .bindPopup(`<strong>${nodo.nombre}</strong><br>
+                        Estado: <span class="${nodo.estado}">${nodo.estado}</span><br>
+                        Alerta: ${nodo.alerta}<br>
+                        <a href="mailto:${nodo.correo}">${nodo.correo}</a>`);
+        });
+      });
+  </script>
+</body>
+</html>
