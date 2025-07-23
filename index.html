@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>Mapa ISP Visual</title>
+  <title>Panel ISP Visual - La Paz</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="style.css" />
@@ -25,7 +25,7 @@
     const map = L.map('map').setView([-16.5, -68.15], 13);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-    // Habilitar íconos por defecto
+    // Íconos por defecto (se cargan desde CDN oficial)
     L.Icon.Default.mergeOptions({
       iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
       iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
@@ -38,9 +38,9 @@
         data.forEach(nodo => {
           L.marker([nodo.lat, nodo.lng]).addTo(map)
             .bindPopup(`<strong>${nodo.nombre}</strong><br>
-                        Estado: <span class="${nodo.estado}">${nodo.estado}</span><br>
-                        Alerta: ${nodo.alerta}<br>
-                        <a href="mailto:${nodo.correo}">${nodo.correo}</a>`);
+              Estado: <span class="${nodo.estado}">${nodo.estado}</span><br>
+              Alerta: ${nodo.alerta}<br>
+              <a href="mailto:${nodo.correo}">${nodo.correo}</a>`);
         });
       });
   </script>
