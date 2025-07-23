@@ -14,5 +14,13 @@
     "estado": "caido",
     "correo": "soporte@tuisp.com",
     "alerta": "02:35"
+  },
+  {
+    "nombre": "Zona Sur",
+    "lat": -16.4922,
+    "lng": -68.1203,
+    "estado": "inestable",
+    "correo": "sur@tuisp.com",
+    "alerta": "03:17"
   }
 ]
