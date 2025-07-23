@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mapa ISP - Leaflet</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    #map { height: 600px; width: 100%; }
+  </style>
+</head>
+<body>
+  <h2>🌍 Zonas ISP</h2>
+  <div id="map"></div>
+  <script>
+    const map = L.map('map').setView([-16.5, -68.15], 13); // La Paz
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    // Nodo 1
+    L.marker([-16.51, -68.14]).addTo(map).bindPopup(`
+      <b>NAP Zona Norte</b><br>
+      Estado túnel: ✅ Conectado<br>
+      Última alerta: 04:12<br>
+      Correo emisor: zona1@tuisp.com
+    `);
+
+    // Nodo 2
+    L.marker([-16.52, -68.16]).addTo(map).bindPopup(`
+      <b>NAP Zona Gamer</b><br>
+      Estado túnel: ❌ Caído<br>
+      Última alerta: 06:28<br>
+      Correo emisor: gamer@tuisp.com
+    `);
+  </script>
+</body>
+</html>
