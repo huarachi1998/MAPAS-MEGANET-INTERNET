@@ -1,7 +1,42 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f4f4;
 }
+
+header {
+  background-color: #222;
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  height: 40px;
+}
+
+h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+#map {
+  height: calc(100vh - 100px);
+}
+
+footer {
+  background-color: #eee;
+  text-align: center;
+  padding: 8px;
+  font-size: 13px;
+}
+
 .leaflet-popup-content {
   font-size: 14px;
 }
+
+.activo { color: green; font-weight: bold; }
+.caido { color: red; font-weight: bold; }
+.inestable { color: orange; font-weight: bold; }
