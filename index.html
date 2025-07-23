@@ -17,21 +17,24 @@
       .then(res => res.json())
       .then(data => {
         data.forEach(nodo => {
-          const color = nodo.estado === "activo" ? "green" :
-                        nodo.estado === "caido" ? "red" : "orange";
+          const estadoColor = {
+            "activo": "green",
+            "caido": "red",
+            "inestable": "orange"
+          }[nodo.estado] || "blue";
 
           const icon = L.icon({
-            iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/marker-icon-${color}.png`,
+            iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/marker-icon-${estadoColor}.png`,
             iconSize: [25, 41],
             iconAnchor: [12, 41],
             popupAnchor: [1, -34]
           });
 
           L.marker([nodo.lat, nodo.lng], { icon }).addTo(map)
-            .bindPopup(`<b>${nodo.nombre}</b><br>
-                        Estado: ${nodo.estado}<br>
-                        Alerta: ${nodo.alerta}<br>
-                        Contacto: <a href="mailto:${nodo.correo}">${nodo.correo}</a>`);
+            .bindPopup(`<strong>${nodo.nombre}</strong><br>
+              Estado: ${nodo.estado}<br>
+              Alerta: ${nodo.alerta}<br>
+              Contacto: <a href="mailto:${nodo.correo}">${nodo.correo}</a>`);
         });
       });
   </script>
