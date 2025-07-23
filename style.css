@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f4f4f4;
+  background: #f9f9f9;
 }
 
 header {
@@ -29,7 +29,7 @@ h1 {
 footer {
   background-color: #eee;
   text-align: center;
-  padding: 8px;
+  padding: 6px;
   font-size: 13px;
 }
 
