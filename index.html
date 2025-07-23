@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Mapa ISP - Leaflet</title>
   <meta charset="utf-8" />
+  <title>Mapa ISP Visual</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <style>
-    #map { height: 600px; width: 100%; }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h2>🌍 Zonas ISP</h2>
-  <div id="map"></div>
+  <div id="map" style="height: 100vh;"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    const map = L.map('map').setView([-16.5, -68.15], 13); // La Paz
+    const map = L.map('map').setView([-16.5, -68.15], 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+    fetch('nodos.json')
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(nodo => {
+          const color = nodo.estado === "activo" ? "green" :
+                        nodo.estado === "caido" ? "red" : "orange";
 
-    // Nodo 1
-    L.marker([-16.51, -68.14]).addTo(map).bindPopup(`
-      <b>NAP Zona Norte</b><br>
-      Estado túnel: ✅ Conectado<br>
-      Última alerta: 04:12<br>
-      Correo emisor: zona1@tuisp.com
-    `);
+          const icon = L.icon({
+            iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/marker-icon-${color}.png`,
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34]
+          });
 
-    // Nodo 2
-    L.marker([-16.52, -68.16]).addTo(map).bindPopup(`
-      <b>NAP Zona Gamer</b><br>
-      Estado túnel: ❌ Caído<br>
-      Última alerta: 06:28<br>
-      Correo emisor: gamer@tuisp.com
-    `);
+          L.marker([nodo.lat, nodo.lng], { icon }).addTo(map)
+            .bindPopup(`<b>${nodo.nombre}</b><br>
+                        Estado: ${nodo.estado}<br>
+                        Alerta: ${nodo.alerta}<br>
+                        Contacto: <a href="mailto:${nodo.correo}">${nodo.correo}</a>`);
+        });
+      });
   </script>
 </body>
 </html>
